@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Folder</title>
+    <link rel="stylesheet" href="form.css">
 </head>
 <body>
-    <header>
-        <h1>Create Folder</h1>
-    </header>
-    <div>
-        <% if (typeof errors !== "undefined" && errors.length > 0) { %>
-            <ul>
-              <% errors.forEach(error => { %>
-                <li><%= error.msg %></li>
-              <% }) %>
-            </ul>
-        <% } %>
-    </div>
-    <form action="/create-folder" method="POST">
-        <label for="name">Folder Name</label>
-        <input type="text" id="name" name="name" />
-        <button type="submit">Create Folder</button>
-    </form>
+    <main>
+        <div>
+            <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+                <ul>
+                  <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                  <% }) %>
+                </ul>
+            <% } %>
+        </div>
+        <section>
+            <h1>Create Folder</h1>
+            <form action="/create-folder" method="POST">
+                <label for="name">Folder Name</label>
+                <input type="text" id="name" name="name" />
+                <button type="submit">Create Folder</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

@@ -4,24 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Uploadify</title>
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
     <header>
         <nav>
-            <h1><i>Uploadify</i></h1>
-            <% if (isAuthenticated) { %>
-                <button><a href="/upload">Upload file</a></button> 
-                <button><a href="/create-folder">Create Folder</a></button> 
-                <button><a href="/logOut">Log Out</a></button>
-            <% } else { %>
-                <button><a href="/sign-up-form">Sign up</a></button>
-                <button><a href="/login-form">Log In</a></button>
-            <% } %> 
+            <h1>
+                <img src="/images/home-city.svg" class="home">
+                <p><i>Uploadify</i></p>
+            </h1>
+            <div>
+                <% if (isAuthenticated) { %>
+                    <button><a href="/upload">Upload</a></button>
+                    <button><a href="/create-folder">Folder</a></button>
+                    <button><a href="/logOut">Log Out</a></button>
+                <% } else { %>
+                    <button><a href="/sign-up-form">Sign up</a></button>
+                    <button><a href="/login-form">Log In</a></button>
+                <% } %> 
+            </div>
         </nav>
     </header>
+    <hr>
     <main>
         <% if (isAuthenticated) { %>
-            <div>
+            <div class="user">
                 <h2>Hi <%= user.username %>!</h2>
                 <p>Upload files to your account and access them from anywhere.</p>
             </div>
@@ -30,23 +37,36 @@
             <% if (user && user.folders && user.folders.length > 0) { %>
                 <table border="1" cellpadding="5" cellspacing="0">
                   <thead>
-                    <tr>
-                      <th>Folder Name</th>
-                      <th>Created At</th>
-                      <th>Danger Zone</th>
+                    <tr class="thead">
+                      <th class="image">
+                        <img src="/images/folder.svg">
+                        <p>Folder Name</p>
+                      </th>
+                      <th class="upload">Upload At</th>
+                      <th class="image center">
+                        <img src="/images/file-document-remove.svg">
+                        <p>Danger Zone</p>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     <% user.folders.forEach(folder => { %>
                       <tr>
-                        <td><a href="/folders/<%= folder.id %>"><%= folder.name %></a></td>
-                        <td><%= folder.uploadedAt 
+                        <td>
+                            <a href="/folders/<%= folder.id %>" class="folder">
+                                <img src="/images/folder.svg">
+                                <p><%= folder.name %></p>
+                            </a>
+                        </td>
+                        <td class="upload"><%= folder.uploadedAt 
                             ? new Date(folder.uploadedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
                             : 'N/A' %>
                         </td>
-                        <td>
+                        <td >
                             <form action="/<%= folder.id %>/delete" method="POST" style="display:inline;">
-                                <button>Delete</button>
+                                <div class="upload">
+                                      <img src="/images/file-document-remove.svg" alt="" class="del">
+                                </div>
                             </form>
                           </td>
                       </tr>
@@ -57,7 +77,11 @@
                 <p>No folders found.</p>
             <% } %>
         <% } else { %>
-            <p>Welcome to Uploadify!</p>
+            <h3>Welcome to Uploadify - Your file uploader!</h3>
+            <p>Please <a href="/login-form">Log In</a> or <a href="/sign-up-form">Sign up</a> to continue.</p>
+            <div>
+                <img src="/images/9e5dcb9e-beb9-423b-9cbe-7a948b42cad1.jpeg" alt="home">
+            </div>
         <% } %>
     </main>
 </body>

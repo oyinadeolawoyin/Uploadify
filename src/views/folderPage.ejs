@@ -4,10 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
+  <link rel="stylesheet" href="/folder.css">
 </head>
 <body>
   <header>
-    <h1>Uploadify</h1>
+    <nav>
+      <h1>Uploadify</h1>
+    </nav>
   </header>
   <main>
     <h2><%= title %></h2>
@@ -21,36 +24,57 @@
         <% } %>
     </div>
     <% if (folder && folder.files && folder.files.length > 0) { %>
-      <table border="1" cellpadding="5" cellspacing="0">
+      <table class="file-table">
         <thead>
           <tr>
-            <th>File Name</th>
+            <th class="image">
+              <img src="/images/folder.svg" alt="Folder">
+              <p>File Name</p>
+            </th>
             <th>Size (bytes)</th>
             <th>Uploaded At</th>
-            <th>Download</th>
-            <th>Danger zone</th>
+            <th class="image">
+              <img src="/images/download-box.svg" alt="Download">
+              <p>Download</p>
+            </th>
+            <th class="image">
+              <img src="/images/file-document-remove.svg" alt="Delete">
+              <p>Danger Zone</p>
+            </th>
           </tr>
         </thead>
         <tbody>
           <% folder.files.forEach(file => { %>
             <tr>
-              <td><a href="<%= file.url %>"><%= file.name %></a></td>
+              <td>
+                <a href="<%= file.url %>" class="image">
+                  <img src="/images/folder.svg" alt="File">
+                  <p><%= file.name %></p>
+                </a>
+              </td>
               <td><%= file.size %></td>
               <td>
                 <%= file.uploadedAt 
                     ? new Date(file.uploadedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
                     : 'N/A' %>
               </td>
-              <td><a href="<%= file.url %>">Download</a></td>
-              <td>
-                <form action="/folders/<%= file.id %>/delete" method="POST" style="display:inline;">
-                    <button>Delete</button>
+              <td class="download-icon">
+                <a href="<%= file.url %>">
+                  <img src="/images/download-box.svg" alt="Download">
+                </a>
+              </td>
+              <td class="danger-icon">
+                <form action="/folders/<%= file.id %>/delete" method="POST">
+                  <button type="submit" style="background: none; border: none; padding: 0;">
+                    <img src="/images/file-document-remove.svg" alt="Delete">
+                  </button>
                 </form>
               </td>
             </tr>
           <% }) %>
         </tbody>
       </table>
+    
     <% } else { %>
       <p>No files found in this folder.</p>
     <% } %>

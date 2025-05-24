@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Log In</title>
+    <link rel="stylesheet" href="form.css">
 </head>
 <body>
-    <header>
-        <h1>Log In</h1>
-    </header>
-    <div>
-        <% if (typeof errors !== "undefined" && errors.length > 0) { %>
-            <ul>
-              <% errors.forEach(error => { %>
-                <li><%= error.msg %></li>
-              <% }) %>
-            </ul>
-        <% } %>
-    </div>
-    <form action="/login-form" method="POST">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required />
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required />
-        <button type="submit">Log In</button>
-    </form>
+    <main>
+        <div>
+            <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+                <ul>
+                  <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                  <% }) %>
+                </ul>
+            <% } %>
+        </div>
+        <section>
+            <h1>Welcome back!</h1>
+            <form action="/login-form" method="POST">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required />
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+                <button type="submit">Log In</button>
+                <p>Don't have an account? <a href="/sign-up-form">Sign up</a></p>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

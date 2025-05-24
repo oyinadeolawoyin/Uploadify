@@ -1,0 +1,166 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  color: #000;
+  margin: 0;
+  padding: 40px;
+}
+
+header {
+  margin: -9px;
+  padding: 10px 0;
+}
+
+nav {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 20px;
+}
+
+nav h1 {
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.home {
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+}
+
+hr {
+  margin-bottom: 25px;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+main {
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+main img {
+  max-height: 500px;
+  max-width: 500px;
+  border-radius: 100px;
+}
+
+button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #000;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.user p {
+  margin-top: -12px;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+thead {
+  background-color: #000;
+  color: #fff;
+}
+
+th, td {
+  padding: 20px;
+  text-align: left;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.image {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.folder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.folder img,
+th > img {
+  height: 40px;
+  width: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.folder:hover {
+  text-decoration: underline;
+}
+
+.upload {
+  text-align: center;
+}
+
+.del {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.del:hover {
+  filter: invert(11%) sepia(82%) saturate(5302%) hue-rotate(264deg) brightness(90%) contrast(97%);
+}
+
+@media (max-width: 600px) {
+  main {
+    font-size: 15px;
+  }
+
+  main img {
+    width: 300px;
+  }
+
+  th > img,
+  .folder img,
+  .del {
+    height: 30px;
+    width: 30px;
+  }
+  
+  nav {
+    gap: 5px;
+  }
+
+  button {
+    padding: 8px;
+  }
+}
