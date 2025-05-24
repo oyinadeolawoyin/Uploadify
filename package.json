@@ -1,4 +1,6 @@
 {
+  "name": "your-app-name",
+  "version": "1.0.0",
   "dependencies": {
     "@prisma/client": "^6.8.2",
     "@supabase/supabase-js": "^2.49.8",
@@ -18,5 +20,9 @@
   "devDependencies": {
     "prettier": "3.5.3",
     "prisma": "^6.8.2"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   }
 }
