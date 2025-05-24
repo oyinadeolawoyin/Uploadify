@@ -9,7 +9,7 @@ const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 const sessionMiddleware = session({
   store: new pgSession({
-    pool: pool,
+    pool,
     tableName: "session",
     createTableIfMissing: true,
   }),
