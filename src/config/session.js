@@ -4,16 +4,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 const pool = require("./pool");
 
-const pgSessionStore = pgSession(session);
-
 // 2 weeks in milliseconds
 const TWO_WEEKS = 1000 * 60 * 60 * 24 * 14;
 
 const sessionMiddleware = session({
-  store: new pgSessionStore({
+  store: new pgSession({
     pool: pool,
     tableName: "session",
-    createTableIfMissing: true
+    createTableIfMissing: true,
   }),
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -21,8 +19,8 @@ const sessionMiddleware = session({
   cookie: {
     maxAge: TWO_WEEKS,
     secure: false,
-    httpOnly: true
-  }
+    httpOnly: true,
+  },
 });
 
 module.exports = sessionMiddleware;

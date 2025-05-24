@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Uploadify</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1><i>Uploadify</i></h1>
+            <% if (isAuthenticated) { %>
+                <button><a href="/upload">Upload file</a></button> 
+                <button><a href="/create-folder">Create Folder</a></button> 
+                <button><a href="/logOut">Log Out</a></button>
+            <% } else { %>
+                <button><a href="/sign-up-form">Sign up</a></button>
+                <button><a href="/login-form">Log In</a></button>
+            <% } %> 
+        </nav>
+    </header>
+    <main>
+        <% if (isAuthenticated) { %>
+            <div>
+                <h2>Hi <%= user.username %>!</h2>
+                <p>Upload files to your account and access them from anywhere.</p>
+            </div>
+            
+            <h2>Your Folders</h2>
+            <% if (user && user.folders && user.folders.length > 0) { %>
+                <table border="1" cellpadding="5" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Folder Name</th>
+                      <th>Created At</th>
+                      <th>Danger Zone</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% user.folders.forEach(folder => { %>
+                      <tr>
+                        <td><a href="/folders/<%= folder.id %>"><%= folder.name %></a></td>
+                        <td><%= folder.uploadedAt 
+                            ? new Date(folder.uploadedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
+                            : 'N/A' %>
+                        </td>
+                        <td>
+                            <form action="/<%= folder.id %>/delete" method="POST" style="display:inline;">
+                                <button>Delete</button>
+                            </form>
+                          </td>
+                      </tr>
+                    <% }) %>
+                  </tbody>
+                </table>
+            <% } else { %>
+                <p>No folders found.</p>
+            <% } %>
+        <% } else { %>
+            <p>Welcome to Uploadify!</p>
+        <% } %>
+    </main>
+</body>
+</html>

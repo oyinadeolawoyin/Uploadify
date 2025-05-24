@@ -1,4 +1,4 @@
-const PrismaClient = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client"); // ✅ Correct destructuring
 
 const prisma = new PrismaClient();
 

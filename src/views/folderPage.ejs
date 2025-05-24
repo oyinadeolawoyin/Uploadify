@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+</head>
+<body>
+  <header>
+    <h1>Uploadify</h1>
+  </header>
+  <main>
+    <h2><%= title %></h2>
+    <div>
+        <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+            <ul>
+              <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+              <% }) %>
+            </ul>
+        <% } %>
+    </div>
+    <% if (folder && folder.files && folder.files.length > 0) { %>
+      <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Size (bytes)</th>
+            <th>Uploaded At</th>
+            <th>Download</th>
+            <th>Danger zone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% folder.files.forEach(file => { %>
+            <tr>
+              <td><a href="<%= file.url %>"><%= file.name %></a></td>
+              <td><%= file.size %></td>
+              <td>
+                <%= file.uploadedAt 
+                    ? new Date(file.uploadedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
+                    : 'N/A' %>
+              </td>
+              <td><a href="<%= file.url %>">Download</a></td>
+              <td>
+                <form action="/folders/<%= file.id %>/delete" method="POST" style="display:inline;">
+                    <button>Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p>No files found in this folder.</p>
+    <% } %>
+  </main>
+</body>
+</html>

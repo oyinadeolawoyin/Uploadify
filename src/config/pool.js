@@ -1,6 +1,6 @@
-require('dotenv').config(); // Needed only for local dev
+require("dotenv").config(); // Needed only for local dev
 
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
