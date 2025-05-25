@@ -9,13 +9,9 @@
 <body>
     <main>
         <div>
-            <% if (typeof errors !== "undefined" && errors.length > 0) { %>
-                <ul>
-                  <% errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
-                  <% }) %>
-                </ul>
-            <% } %>
+            <% if (error) { %>
+                <div class="alert alert-danger"><%= error %></div>
+            <% } %>              
         </div>
         <section>
             <h1>Welcome back!</h1>
