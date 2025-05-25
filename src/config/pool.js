@@ -1,15 +1,12 @@
-require("dotenv").config();
-const { Pool } = require("pg");
-const fs = require("fs");
+require('dotenv').config();
 
-const caCert = fs.readFileSync("/etc/secrets/ca.pem").toString();
+const { Pool } = require('pg');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: true,
-    ca: caCert,
-  },
+    rejectUnauthorized: false // Important for Render/Railway SSL handling
+  }
 });
 
 module.exports = pool;
