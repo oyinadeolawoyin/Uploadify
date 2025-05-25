@@ -96,8 +96,8 @@ thead {
   color: #fff;
 }
 
-thead img {
-  filter: invert(0) brightness(1);
+.image img {
+  filter: invert(1) brightness(1);
 }
 
 th, td {
