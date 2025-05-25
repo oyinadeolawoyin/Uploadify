@@ -64,10 +64,10 @@
                         </td>
                         <td >
                             <form action="/<%= folder.id %>/delete" method="POST" style="display:inline;">
-                                <div class="upload">
-                                      <img src="/images/file-document-remove.svg" alt="" class="del">
-                                </div>
-                            </form>
+                                <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;">
+                                  <img src="/images/file-document-remove.svg" alt="Delete" class="del">
+                                </button>
+                              </form>                              
                           </td>
                       </tr>
                     <% }) %>
