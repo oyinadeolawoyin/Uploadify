@@ -96,6 +96,10 @@ thead {
   color: #fff;
 }
 
+thead img {
+  filter: invert(0) brightness(1);
+}
+
 th, td {
   padding: 20px;
   text-align: left;
