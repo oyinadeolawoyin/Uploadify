@@ -23,7 +23,7 @@ async function uploadFile(req, res) {
     const supabasePath = `uploads/${Date.now()}_${file.originalname}`;
 
     const { data, error } = await supabase.storage
-      .from("user-uploads")
+      .from("uploadify")
       .upload(supabasePath, fileBuffer, {
         contentType: file.mimetype,
       });
@@ -31,7 +31,7 @@ async function uploadFile(req, res) {
     if (error) throw error;
 
     const { data: publicUrlData } = supabase.storage
-      .from("user-uploads")
+      .from("uploadify")
       .getPublicUrl(supabasePath);
 
     const publicUrl = publicUrlData.publicUrl;
