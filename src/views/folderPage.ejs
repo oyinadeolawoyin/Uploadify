@@ -14,69 +14,115 @@
   </header>
   <main>
     <h2><%= title %></h2>
-    <div>
-        <% if (typeof errors !== "undefined" && errors.length > 0) { %>
-            <ul>
-              <% errors.forEach(error => { %>
-                <li><%= error.msg %></li>
-              <% }) %>
-            </ul>
-        <% } %>
-    </div>
-    <% if (folder && folder.files && folder.files.length > 0) { %>
-      <table class="file-table">
-        <thead>
-          <tr>
-            <th class="image">
-              <img src="/images/folder.svg" alt="Folder">
-              <p>File Name</p>
-            </th>
-            <th>Size (bytes)</th>
-            <th>Uploaded At</th>
-            <th class="image">
-              <img src="/images/download-box.svg" alt="Download">
-              <p>Download</p>
-            </th>
-            <th class="image">
-              <img src="/images/file-document-remove.svg" alt="Delete">
-              <p>Danger Zone</p>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% folder.files.forEach(file => { %>
-            <tr>
-              <td>
-                <a href="<%= file.url %>" class="image">
-                  <img src="/images/folder.svg" alt="File">
-                  <p><%= file.name %></p>
-                </a>
-              </td>
-              <td><%= file.size %></td>
-              <td>
-                <%= file.uploadedAt 
-                    ? new Date(file.uploadedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
-                    : 'N/A' %>
-              </td>
-              <td class="download-icon">
-                <a href="<%= file.url %>">
-                  <img src="/images/download-box.svg" alt="Download">
-                </a>
-              </td>
-              <td class="danger-icon">
-                <form action="/folders/<%= file.id %>/delete" method="POST">
-                  <button type="submit" style="background: none; border: none; padding: 0;">
-                    <img src="/images/file-document-remove.svg" alt="Delete">
-                  </button>
-                </form>
-              </td>
-            </tr>
+    
+    <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+      <div class="error-list">
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
           <% }) %>
-        </tbody>
-      </table>
+        </ul>
+      </div>
+    <% } %>
+    
+    <% if (folder && folder.files && folder.files.length > 0) { %>
+      
+      <!-- Table view for desktop/tablet -->
+      <div class="file-table-container">
+        <table class="file-table">
+          <thead>
+            <tr>
+              <th class="image">
+                <img src="/images/folder.svg" alt="Folder">
+                <p>File Name</p>
+              </th>
+              <th>Size (bytes)</th>
+              <th>Uploaded At</th>
+              <th class="image">
+                <img src="/images/download-box.svg" alt="Download">
+                <p>Download</p>
+              </th>
+              <th class="image">
+                <img src="/images/file-document-remove.svg" alt="Delete">
+                <p>Danger Zone</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% folder.files.forEach(file => { %>
+              <tr>
+                <td>
+                  <a href="<%= file.url %>" class="image">
+                    <img src="/images/folder.svg" alt="File">
+                    <p><%= file.name %></p>
+                  </a>
+                </td>
+                <td><%= file.size %></td>
+                <td>
+                  <%= file.uploadedAt 
+                      ? new Date(file.uploadedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
+                      : 'N/A' %>
+                </td>
+                <td class="download-icon">
+                  <a href="<%= file.url %>">
+                    <img src="/images/download-box.svg" alt="Download">
+                  </a>
+                </td>
+                <td class="danger-icon">
+                  <form action="/folders/<%= file.id %>/delete" method="POST">
+                    <button type="submit">
+                      <img src="/images/file-document-remove.svg" alt="Delete">
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Card view for mobile -->
+      <div class="file-cards">
+        <% folder.files.forEach(file => { %>
+          <div class="file-card">
+            <div class="file-card-header">
+              <img src="/images/folder.svg" alt="File">
+              <div class="file-card-name"><%= file.name %></div>
+            </div>
+            
+            <div class="file-card-info">
+              <div class="file-card-info-item">
+                <div class="file-card-info-label">Size</div>
+                <div class="file-card-info-value"><%= file.size %> bytes</div>
+              </div>
+              <div class="file-card-info-item">
+                <div class="file-card-info-label">Uploaded</div>
+                <div class="file-card-info-value">
+                  <%= file.uploadedAt 
+                      ? new Date(file.uploadedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
+                      : 'N/A' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="file-card-actions">
+              <a href="<%= file.url %>" class="file-card-action download">
+                <img src="/images/download-box.svg" alt="Download">
+                <span>Download</span>
+              </a>
+              <form action="/folders/<%= file.id %>/delete" method="POST" style="flex: 1;">
+                <button type="submit" class="file-card-action delete" style="width: 100%;">
+                  <img src="/images/file-document-remove.svg" alt="Delete">
+                  <span>Delete</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
     
     <% } else { %>
-      <p>No files found in this folder.</p>
+      <p class="no-files">No files found in this folder.</p>
     <% } %>
   </main>
 </body>
